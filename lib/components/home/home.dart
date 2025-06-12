@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
               appBar: AppBar(
                 title: Text('WhatBytes'),
                 automaticallyImplyLeading: false,
+                backgroundColor: Color(0xfff7f7f7),
                 centerTitle: true,
                 actions: [
                   PopupMenuButton(
@@ -72,6 +73,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
+              backgroundColor: Color(0xfff7f7f7),
               body: children[state.tabPosition],
               floatingActionButton: Container(
                 height: 64,

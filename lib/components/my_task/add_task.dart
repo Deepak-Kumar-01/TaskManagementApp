@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskmanagementapp/utils/firebase_utils.dart';
 
+import '../../utils/utils.dart';
 import '../home/home.dart';
 class AddTaskContent extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _AddTaskContentState extends State<AddTaskContent> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   late DateTime? pickedDate;
-  late String taskPriority;
+  late String taskPriority="";
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _AddTaskContentState extends State<AddTaskContent> {
         children: [
           Row(
             children: [
-              Text("What would you like to do?",
+              Text("What would you like to do? ${taskPriority}",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               Spacer(),
               IconButton(
@@ -93,7 +94,7 @@ class _AddTaskContentState extends State<AddTaskContent> {
               Spacer(),
               ElevatedButton(
                 onPressed: () async{
-                  showLoadingDialog(context);
+                  Utils.showLoadingDialog(context);
                   await FirebaseUtils.uploadAddedTask(_titleController.text, _descController.text, pickedDate!, taskPriority);
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
@@ -116,22 +117,5 @@ class _AddTaskContentState extends State<AddTaskContent> {
       ),
     );
   }
-  void showLoadingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // user can't tap outside to close
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          content: Row(
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(width: 20),
-              Text("Please wait..."),
-            ],
-          ),
-        );
-      },
-    );
-  }
+
 }

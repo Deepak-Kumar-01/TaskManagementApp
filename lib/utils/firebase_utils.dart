@@ -13,27 +13,40 @@ class FirebaseUtils {
       DateTime dueDate, String taskPriority) async {
     App.instance.init();
     String uid = App.instance.userId;
-    try{
+    try {
       await _getCollectionReference("users").doc(uid).collection("tasks").add({
-        "title": title,
-        "description": description,
+        "title": title.trim(),
+        "description": description.trim(),
         "priority": taskPriority,
         "dueDate": dueDate,
-        "isComplete":false
+        "isComplete": false
       });
-    }
-    catch(e){
+    } catch (e) {
       print("${e} Error-Failed UploadAddedTask");
     }
   }
-  static Stream<QuerySnapshot> getUserTasks() {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    print("Stream: ${FirebaseFirestore.instance
+  static Future<void> updateTaskDetail(String docId,String title, String description,
+      DateTime dueDate, String taskPriority)async{
+    App.instance.init();
+    String uid=App.instance.userId;
+    print("${docId} ${title} ${description} ${dueDate}, ${taskPriority}");
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .collection('tasks')
-        .orderBy('createdAt', descending: true)
-        .snapshots()}");
+        .doc(docId)
+        .update({
+      'title': title.trim(),
+      'description': description.trim(),
+      'dueDate': dueDate,
+      'priority': taskPriority,
+    });
+  }
+
+  static Stream<QuerySnapshot> getUserTasks() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    print(
+        "Stream: ${FirebaseFirestore.instance.collection('users').doc(uid).collection('tasks').orderBy('createdAt', descending: true).snapshots()}");
     return FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
