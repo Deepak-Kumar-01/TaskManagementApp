@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:taskmanagementapp/components/my_task/add_task.dart';
 import 'package:taskmanagementapp/components/my_task/my_task.dart';
 import 'package:taskmanagementapp/components/task_calendar/task_calendar.dart';
 import 'package:taskmanagementapp/utils/pref/pref_manager.dart';
@@ -79,7 +80,9 @@ class _HomeState extends State<Home> {
                   backgroundColor: const Color(0xff666af6),
                   shape: CircleBorder(),
                   elevation: 4.0,
-                  onPressed: () {},
+                  onPressed: () {
+                    _showBottomSheet(context);
+                  },
                   tooltip: 'Add Todos',
                   child: Icon(
                     Icons.add,
@@ -184,5 +187,20 @@ class _HomeState extends State<Home> {
     await PrefManager.db.clearAll();
     await FirebaseAuth.instance.signOut();
     Phoenix.rebirth(context);
+  }
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: AddTaskContent(),
+        );
+      },
+    );
   }
 }

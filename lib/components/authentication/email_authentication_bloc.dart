@@ -49,6 +49,7 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
         final user = auth.user;
         App.instance.userId = user!.uid;
         App.instance.token = (await user.getIdToken())!;
+        print("App user: ${App.instance.userId}");
         //Set login true
         await PrefManager.db.init();
         await PrefManager.db.setIsLoggedIn(true);

@@ -40,6 +40,7 @@ dependencies:
   flutter_phoenix: ^1.1.1
   fluttertoast: ^8.2.12
   shared_preferences: ^2.3.2
+  cloud_firestore: ^5.4.0
 
 dev_dependencies:
   flutter_test:
