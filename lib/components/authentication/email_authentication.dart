@@ -18,6 +18,7 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   bool _hidePassword = true;
+  bool isSignin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -51,52 +52,30 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 100,
+                          SizedBox(
+                            height: 10,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // Image.asset(
-                              //   Theme.of(context).brightness == Brightness.dark
-                              //       ? "assets/logo/logo-dark-mode.png"
-                              //       : "assets/logo/logo-light-mode.png",
-                              //   height: 70,
-                              // ),
-                              const SizedBox(
-                                height: 15,
+                              Image.asset(
+                                "assets/welcome_img.png",
                               ),
                               Text(
-                                'App Name',
+                                isSignin
+                                    ? "Welcome back!"
+                                    : "Let's get started!",
                                 style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black),
+                                    color: Colors.black),
                               ),
                               const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Description',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.yellow[300]
-                                      : const Color(0xff717171),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
+                                height: 30,
                               ),
                               //Email
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 child: TextFormField(
                                   focusNode: _emailFocusNode,
                                   validator: _emailValidation,
@@ -104,7 +83,7 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                                     labelText: "Email",
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
+                                            Radius.circular(25))),
                                     prefixIcon: Icon(Icons.alternate_email),
                                   ),
                                   keyboardType: TextInputType.emailAddress,
@@ -119,14 +98,14 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                               const SizedBox(height: 20),
                               //Password
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 child: TextFormField(
                                   focusNode: _passwordFocusNode,
                                   decoration: InputDecoration(
                                     labelText: "Password",
                                     border: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
+                                            Radius.circular(25))),
                                     prefixIcon: Icon(Icons.password_sharp),
                                     suffixIcon: IconButton(
                                         onPressed: () {
@@ -144,11 +123,9 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                                   textInputAction: TextInputAction.next,
                                 ),
                               ),
-                              const SizedBox(height: 15),
-                              //Terms and Condition
+                              const SizedBox(height: 20),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
                                     onTap: () async {
@@ -164,14 +141,11 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                                       }
                                     },
                                     child: Text(
-                                      'Forget Password?',
+                                      isSignin ? "Forget Password?" : "",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.blue[900]),
+                                          color: Colors.blue[900]),
                                     ),
                                   ),
                                 ],
@@ -183,34 +157,56 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
                                 child: Container(
                                   padding: const EdgeInsets.only(
                                       left: 32, right: 32),
-                                  width: MediaQuery.of(context).size.width,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       _handleOnPressed(context);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.blue[900],
+                                      backgroundColor: const Color(0xff666af6),
                                       minimumSize: const Size(64, 48),
                                       elevation: 2,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
+                                        borderRadius: BorderRadius.circular(30),
                                       ),
                                     ),
                                     child: Text(
-                                      "Login",
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.black
-                                              : Colors.white),
+                                      isSignin ? "Login" : "Signup",
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              // Resend option
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(!isSignin
+                                      ? "Already have an account? "
+                                      : "Don't have an account? "),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSignin = !isSignin;
+                                      });
+                                    },
+                                    child: Text(
+                                      !isSignin ? "Log in" : "Get started!",
+                                      style: TextStyle(
+                                        color: const Color(0xff666af6),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                           const SizedBox(height: 16),
@@ -224,18 +220,16 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Authenticating, please wait"),
+                  Text(isSignin
+                      ? "Authenticating, please wait"
+                      : "Registering, please wait..."),
                   const SizedBox(
                     height: 20,
                   ),
                   Center(
-                    child: Theme.of(context).brightness == Brightness.dark
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
-                        : CircularProgressIndicator(
-                            color: Colors.blue[900],
-                          ),
+                    child: CircularProgressIndicator(
+                      color: const Color(0xff666af6),
+                    ),
                   )
                 ],
               ),
@@ -281,6 +275,7 @@ class _UserEmailAuthenticationState extends State<UserEmailAuthentication> {
     }
     BlocProvider.of<EmailAuthBloc>(context).add(OnAuthenticationClicked(
         email: _emailController.text.toLowerCase(),
-        password: _passwordController.text));
+        password: _passwordController.text,
+        isSignin: isSignin));
   }
 }

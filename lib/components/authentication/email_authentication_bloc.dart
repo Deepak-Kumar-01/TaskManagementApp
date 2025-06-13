@@ -11,7 +11,8 @@ class OnLoadEmailAuth extends EmailAuthEvent {}
 class OnAuthenticationClicked extends EmailAuthEvent {
   final String email;
   final String password;
-  OnAuthenticationClicked({required this.email, required this.password});
+  final bool isSignin;
+  OnAuthenticationClicked({required this.email, required this.password,required this.isSignin});
 }
 
 class OnResetLinkSent extends EmailAuthEvent {
@@ -41,9 +42,13 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
     on<OnLoadEmailAuth>((event, emit) async {
       emit(EmailAuthLoaded());
     });
+
     on<OnAuthenticationClicked>((event, emit) async {
       emit(EmailAuthLoading());
       try {
+        if(!event.isSignin){
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(email: event.email, password: event.password);
+        }
         final auth = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: event.email, password: event.password);
         final user = auth.user;

@@ -55,6 +55,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(AuthenticationSuccess());
       emit(HomeTabSelected(0));
     });
+
     on<OnHomeTabPressed>((event,emit)async{
       emit(HomeTabSelected(event.tabPosition));
     });

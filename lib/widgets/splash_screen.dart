@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget{
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Center(child: Text("WhatBytes",style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
-          ? Colors.white // Use white for dark mode
-          : Color(0xff191919), // Use black for light mode
-
-      fontSize: 32,
-      fontWeight: FontWeight.bold,
-      // letterSpacing: MediaQuery.of(context).size.width * 0.04
-      ),
-      )),
-    );
+        body: Stack(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+          child: SizedBox.expand(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: [
+                  Image.asset("assets/welcome_img.png"),
+                  Text(
+                    "Get things done.",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Your tasks, your timeline, your control.",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -100,
+          right: -100,
+          child: Container(
+            height: 250,
+            width: 250,
+            decoration: BoxDecoration(
+                color: const Color(0xff666af6), shape: BoxShape.circle),
+          ),
+        )
+      ],
+    ));
   }
 }

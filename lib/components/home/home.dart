@@ -22,18 +22,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> tabs = [
-      {
-        'icon1': "assets/dashboard_icons/icons8-home.png",
-        'icon2': "assets/dashboard_icons/icons8-home-grey.png",
-        'label': 'Home'
-      },
-      {
-        'icon1': "assets/dashboard_icons/icons8-order-history.png",
-        'icon2': "assets/dashboard_icons/icons8-order-history-grey.png",
-        'label': 'History '
-      },
-    ];
     final List<Widget> children = [MyTask(), TaskCalendar()];
     return BlocProvider(
       create: (context) =>
@@ -170,13 +158,9 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 Center(
-                  child: Theme.of(context).brightness == Brightness.dark
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : CircularProgressIndicator(
-                          color: Colors.blue[900],
-                        ),
+                  child: CircularProgressIndicator(
+                    color: const Color(0xff666af6),
+                  ),
                 )
               ],
             ),
@@ -185,11 +169,13 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
   _handleLogout(BuildContext context) async {
     await PrefManager.db.clearAll();
     await FirebaseAuth.instance.signOut();
     Phoenix.rebirth(context);
   }
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,

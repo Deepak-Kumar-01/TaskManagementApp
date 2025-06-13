@@ -4,6 +4,6 @@ class TaskCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Task Calendar");
+    return Center(child: Text("Task Calendar"));
   }
 }
