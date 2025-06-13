@@ -1,16 +1,61 @@
-# taskmanagementapp
+# Task Manager App
 
-A new Flutter project.
+A simple task management application built in **Flutter** for gig workers, submitted as part of the Flutter Developer Internship assignment at **Whatbytes**.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✅ Implemented Features
 
-A few resources to get you started if this is your first Flutter project:
+1. **Authentication**
+   - Email/password **login & registration**  
+   - Powered by **Firebase Authentication**  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **Task CRUD**
+   - **Create**, **edit**, **delete**, and **view** tasks  
+   - Task fields: **Title**, **Description**, **Due Date**, **Priority** (Low/Med/High), **Completion Status**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Task Filtering & Sorting**
+   - Filter by **Priority** and **Status** (Completed/Incomplete)  
+   - Automatically **sort tasks** by due date (earliest → latest)
+
+4. **Task Completion**
+   - **Mark tasks** as complete/incomplete with a single tap  
+   - Visual indicators for completed tasks
+
+5. **Responsive UI**
+   - Clean, Material‑design based screens  
+   - Intuitive navigation between **Login**, **Task List**, **Task Form**, and **Filters**
+
+---
+
+## 🛠 Tech Stack
+
+| Layer               | Technology                   |
+| ------------------- | ---------------------------- |
+| **Framework**       | Flutter                      |
+| **Authentication**  | Firebase Authentication      |
+| **Database**        | Firebase Firestore           |
+| **State Management**| Bloc (`flutter_bloc`)        |
+| **UI**              | Material Design Widgets      |
+
+---
+
+## 🧪 Setup Instructions
+
+```bash
+# Clone the repository
+git clone https://github.com/Deepak-Kumar-01/TaskManagementApp.git
+cd task-manager-app
+
+# Install dependencies
+flutter pub get
+
+# Firebase Setup
+# 1. Create a Firebase project
+# 2. Enable Email/Password sign-in
+# 3. Download & replace:
+#    - android/app/google-services.json
+#    - ios/Runner/GoogleService-Info.plist
+
+# Run the app
+flutter run
