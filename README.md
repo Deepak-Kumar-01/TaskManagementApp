@@ -2,6 +2,9 @@
 
 A simple task management application built in **Flutter** for gig workers, submitted as part of the Flutter Developer Internship assignment at **Whatbytes**.
 
+🔐 **Test Account**
+- Email: `test@wb.com`
+- Password: `wb@123`
 ---
 
 ## ✅ Implemented Features
