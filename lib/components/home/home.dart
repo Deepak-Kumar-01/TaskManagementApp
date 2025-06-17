@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
           if (state is HomeTabSelected) {
             return Scaffold(
               appBar: AppBar(
+                title: Text('WhatBytes'),
                 title: Text('WhatBytes-Test-Conflict'),
                 automaticallyImplyLeading: false,
                 backgroundColor: Color(0xfff7f7f7),
